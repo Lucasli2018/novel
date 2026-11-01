@@ -1,7 +1,7 @@
 {
   "siteTitle": "玉灯奇物馆 · Jade Lantern Curio",
   "siteSubtitle": "东方奇物，静夜心事——以及我们愿意留下的那盏灯。",
-  "shopBase": "https://aurasage.example.com",
+  "shopBase": "https://aurasage-du3.pages.dev/",
   "defaultLang": "zh",
   "cover": "covers/jade-lantern.png",
   "books": [
@@ -49,6 +49,14 @@
           "zh": "novel/玉灯奇物馆/zh/第04章_地窖里的手记.md",
           "en": "novel/玉灯奇物馆/en/ch04-the-notebook-in-the-basement.md",
           "products": ["p27", "p04"]
+        },
+        {
+          "id": "ch05",
+          "n": 5,
+          "title": { "zh": "第五章 · 卡住的年轻人", "en": "Chapter 5 · The One Who Was Stuck" },
+          "zh": "novel/玉灯奇物馆/zh/第05章_卡住的年轻人.md",
+          "en": "novel/玉灯奇物馆/en/ch05-the-one-who-was-stuck.md",
+          "products": ["p54", "p33"]
         }
       ]
     }
