@@ -10,8 +10,12 @@
       "author": "林默 / Lin Mo",
       "cover": "covers/jade-lantern.png",
       "langs": {
-        "zh": { "title": "玉灯奇物馆" },
-        "en": { "title": "Jade Lantern Curio" }
+        "zh": {
+          "title": "玉灯奇物馆"
+        },
+        "en": {
+          "title": "Jade Lantern Curio"
+        }
       },
       "intro": {
         "zh": "Maple Hollow 老城的深处，有一家只在夜里亮灯的东方奇物馆。林梅接手了祖母留下的店铺，用真实在售的东方器物——水晶、香、玉器——为每一位深夜推门而入的客人，解开一段心结。这里不写魔法，只写文化、仪式感，与一点恰到好处的温柔。",
@@ -21,58 +25,114 @@
         {
           "id": "ch01",
           "n": 1,
-          "title": { "zh": "第一章 · 不灭的灯", "en": "Chapter 1 · The Lamp That Wouldn't Go Out" },
+          "title": {
+            "zh": "第一章 · 不灭的灯",
+            "en": "Chapter 1 · The Lamp That Wouldn't Go Out"
+          },
           "zh": "novel/玉灯奇物馆/zh/第01章_不灭的灯.md",
           "en": "novel/玉灯奇物馆/en/ch01-the-lamp-that-wouldnt-go-out.md",
-          "products": ["p49", "p02"]
+          "products": [
+            "p49",
+            "p02"
+          ]
         },
         {
           "id": "ch02",
           "n": 2,
-          "title": { "zh": "第二章 · 不为情爱的玫瑰", "en": "Chapter 2 · The Rose That Wasn't for Love" },
+          "title": {
+            "zh": "第二章 · 不为情爱的玫瑰",
+            "en": "Chapter 2 · The Rose That Wasn't for Love"
+          },
           "zh": "novel/玉灯奇物馆/zh/第02章_不为情爱的玫瑰.md",
           "en": "novel/玉灯奇物馆/en/ch02-the-rose-that-wasnt-for-love.md",
-          "products": ["p06", "p16"]
+          "products": [
+            "p06",
+            "p16"
+          ]
         },
         {
           "id": "ch03",
           "n": 3,
-          "title": { "zh": "第三章 · 门槛的守夜人", "en": "Chapter 3 · The Night-Watch at the Threshold" },
+          "title": {
+            "zh": "第三章 · 门槛的守夜人",
+            "en": "Chapter 3 · The Night-Watch at the Threshold"
+          },
           "zh": "novel/玉灯奇物馆/zh/第03章_门槛的守夜人.md",
           "en": "novel/玉灯奇物馆/en/ch03-the-night-watch-at-the-threshold.md",
-          "products": ["p01", "p09"]
+          "products": [
+            "p01",
+            "p09"
+          ]
         },
         {
           "id": "ch04",
           "n": 4,
-          "title": { "zh": "第四章 · 地窖里的手记", "en": "Chapter 4 · The Notebook in the Basement" },
+          "title": {
+            "zh": "第四章 · 地窖里的手记",
+            "en": "Chapter 4 · The Notebook in the Basement"
+          },
           "zh": "novel/玉灯奇物馆/zh/第04章_地窖里的手记.md",
           "en": "novel/玉灯奇物馆/en/ch04-the-notebook-in-the-basement.md",
-          "products": ["p27", "p04"]
+          "products": [
+            "p27",
+            "p04"
+          ]
         },
         {
           "id": "ch05",
           "n": 5,
-          "title": { "zh": "第五章 · 卡住的年轻人", "en": "Chapter 5 · The One Who Was Stuck" },
+          "title": {
+            "zh": "第五章 · 卡住的年轻人",
+            "en": "Chapter 5 · The One Who Was Stuck"
+          },
           "zh": "novel/玉灯奇物馆/zh/第05章_卡住的年轻人.md",
           "en": "novel/玉灯奇物馆/en/ch05-the-one-who-was-stuck.md",
-          "products": ["p54", "p33"]
+          "products": [
+            "p54",
+            "p33"
+          ]
         },
         {
           "id": "ch06",
           "n": 6,
-          "title": { "zh": "第六章 · 来自 Aether 的男人", "en": "Chapter 6 · The Man from Aether" },
+          "title": {
+            "zh": "第六章 · 来自 Aether 的男人",
+            "en": "Chapter 6 · The Man from Aether"
+          },
           "zh": "novel/玉灯奇物馆/zh/第06章_来自Aether的男人.md",
           "en": "novel/玉灯奇物馆/en/ch06-the-man-from-aether.md",
-          "products": ["p48", "p26"]
+          "products": [
+            "p48",
+            "p26"
+          ]
         },
         {
           "id": "ch07",
           "n": 7,
-          "title": { "zh": "第七章 · 招财石与半开的门", "en": "Chapter 7 · Citrine and the Closed Door" },
+          "title": {
+            "zh": "第七章 · 招财石与半开的门",
+            "en": "Chapter 7 · Citrine and the Closed Door"
+          },
           "zh": "novel/玉灯奇物馆/zh/第07章_招财石与半开的门.md",
           "en": "novel/玉灯奇物馆/en/ch07-citrine-and-the-closed-door.md",
-          "products": ["p15", "p50"]
+          "products": [
+            "p15",
+            "p50"
+          ]
+        },
+        {
+          "id": "ch08",
+          "n": 8,
+          "title": {
+            "zh": "第八章 · 檀香与一段记忆",
+            "en": "Chapter 8 · Sandalwood, and a Memory"
+          },
+          "zh": "novel/玉灯奇物馆/zh/第08章_檀香与一段记忆.md",
+          "en": "novel/玉灯奇物馆/en/ch08-sandalwood-and-a-memory.md",
+          "products": [
+            "p02",
+            "p12"
+          ]
         }
       ]
     }
