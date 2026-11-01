@@ -159,6 +159,20 @@
           "products": [
             "p04"
           ]
+        },
+        {
+          "id": "ch11",
+          "n": 11,
+          "title": {
+            "zh": "第十一章 · 循光的第一缕香",
+            "en": "Chapter 11 · The Scent That Led the Way"
+          },
+          "zh": "novel/玉灯奇物馆/zh/第11章_循光的第一缕香.md",
+          "en": "novel/玉灯奇物馆/en/ch11-the-scent-that-led-the-way.md",
+          "products": [
+            "p07",
+            "p49"
+          ]
         }
       ]
     }
