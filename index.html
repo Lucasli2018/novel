@@ -6,6 +6,8 @@
 <title>玉灯奇物馆 · Jade Lantern Curio</title>
 <link rel="icon" href="favicon.ico" type="image/x-icon">
 <script src="assets/marked.min.js"></script>
+<!-- 内联数据：本地 file:// 双击打开时使用；线上 http(s) 优先 fetch 实时 JSON，失败回退到此 -->
+<script src="assets/data.js"></script>
 <style>
 :root{
   --bg:#f4ecd8;--card:#fbf6ed;--text:#5b4636;--sub:#8b7355;
@@ -190,20 +192,53 @@ const t=z=>lang==="zh"?z.zh:z.en;
 const showStatus=s=>$("statusTip").textContent=s;
 const showError=s=>$("statusTip").innerHTML=`<div class="error-tip">${s}</div>`;
 
+// ============ 数据加载（兼容 file:// 双击与 http(s) 部署） ============
+const EMBED = window.__EMBED__ || null;
+const IS_FILE = location.protocol === "file:";
+// file:// 下 fetch 被 CORS 拦截，直接用内联数据；http(s) 优先 fetch 实时 JSON，失败回退内联
+async function loadBooksData(){
+  if(IS_FILE && EMBED && EMBED.books) return EMBED.books;
+  try{ const r=await fetch("books.json"); if(!r.ok) throw 0; return await r.json(); }
+  catch(e){ if(EMBED && EMBED.books) return EMBED.books; throw e; }
+}
+async function loadCodexData(){
+  if(IS_FILE && EMBED && EMBED.codex) return EMBED.codex;
+  try{ const r=await fetch("codex/codex.json"); if(!r.ok) throw 0; return await r.json(); }
+  catch(e){ if(EMBED && EMBED.codex) return EMBED.codex; throw e; }
+}
+// 章节正文：file:// 直接用内联（fetch 必失败）；http(s) 优先实时 fetch，失败回退内联
+async function loadChapterText(key){
+  if(IS_FILE){
+    if(EMBED && EMBED.chapters && EMBED.chapters[key]!=null) return EMBED.chapters[key];
+    throw new Error("chapter not embedded: "+key);
+  }
+  if(contentCache[key]) return contentCache[key];
+  try{
+    const res=await fetch(encodeURI(key));
+    if(!res.ok) throw new Error("HTTP "+res.status);
+    const md=await res.text();
+    contentCache[key]=md;
+    return md;
+  }catch(e){
+    if(EMBED && EMBED.chapters && EMBED.chapters[key]!=null) return EMBED.chapters[key];
+    throw e;
+  }
+}
+
 // ============ 初始化 ============
 window.onload=async()=>{
   applyTheme(); applyLangButtons();
   $("loader").style.display="block";
   showStatus(lang==="zh"?"加载中…":"Loading…");
   try{
-    const [b,c]=await Promise.all([fetch("books.json").then(r=>r.json()), fetch("codex/codex.json").then(r=>r.json())]);
+    const [b,c]=await Promise.all([loadBooksData(), loadCodexData()]);
     DATA=b; CODEX=c;
     $("siteTitle").textContent=t({zh:DATA.siteTitle.split(" · ")[0],en:DATA.siteTitle.split(" · ")[1]||DATA.siteTitle});
     $("siteSub").textContent=t({zh:"Jade Lantern Curio",en:"玉灯奇物馆"});
     $("navShop").href=DATA.shopBase||"#";
     renderShelf();
   }catch(e){
-    showError((lang==="zh"?"加载失败：":"Load failed: ")+e.message+"<br><small>"+(lang==="zh"?"请通过本地服务器（如 python -m http.server）打开，直接双击 file:// 无法读取清单。":"Open via a local server (e.g. python -m http.server); file:// cannot read the manifest.")+"</small>");
+    showError((lang==="zh"?"加载失败：":"Load failed: ")+e.message+"<br><small>"+(lang==="zh"?"请通过本地服务器（如 python -m http.server）打开，或确认 assets/data.js 已生成。":"Open via a local server (e.g. python -m http.server), or ensure assets/data.js is generated.")+"</small>");
   }finally{ $("loader").style.display="none"; }
 };
 
@@ -213,14 +248,14 @@ function renderShelf(filter){
   const q=(filter||"").toLowerCase();
   const books=DATA.books.filter(b=>{
     if(!q) return true;
-    const title=t(b.langs).toLowerCase();
+    const title=b.langs[lang].title.toLowerCase();
     const intro=t(b.intro).toLowerCase();
     const ch=b.chapters.some(c=>t(c.title).toLowerCase().includes(q));
     return title.includes(q)||intro.includes(q)||ch;
   });
   let html=`<div class="book-grid">`;
   books.forEach(b=>{
-    const title=t(b.langs), intro=t(b.intro), author=b.author;
+    const title=b.langs[lang].title, intro=t(b.intro), author=b.author;
     html+=`<div class="book-card" onclick="openBook('${b.id}')">
       <img class="book-cover" src="${b.cover}" alt="${title}" onerror="this.style.background='linear-gradient(135deg,#1a1a2e,#2a2418)'">
       <div class="book-body">
@@ -238,7 +273,7 @@ function renderShelf(filter){
 function openBook(id){
   const b=DATA.books.find(x=>x.id===id); if(!b) return;
   curBook=b; view="book"; $("reader-view").style.display="none"; $("searchBar").style.display="none";
-  const title=t(b.langs), intro=t(b.intro);
+  const title=b.langs[lang].title, intro=t(b.intro);
   let html=`<button class="back-btn" onclick="goShelf()" style="margin-bottom:16px">← ${lang==="zh"?"返回书架":"Back to shelf"}</button>
     <div class="book-head">
       <img src="${b.cover}" alt="${title}" onerror="this.style.background='linear-gradient(135deg,#1a1a2e,#2a2418)'">
@@ -263,7 +298,7 @@ async function openReader(bookId,idx){
   const b=DATA.books.find(x=>x.id===bookId); if(!b) return;
   curBook=b; curChap=idx; view="reader";
   const c=b.chapters[idx];
-  const bTitle=t(b.langs), cTitle=t(c.title);
+  const bTitle=b.langs[lang].title, cTitle=t(c.title);
   $("rCover").src=b.cover;
   $("rTitle").textContent=bTitle;
   $("rSub").textContent=cTitle;
@@ -273,8 +308,7 @@ async function openReader(bookId,idx){
   window.scrollTo({top:0,behavior:"smooth"});
   try{
     const key=c[lang];
-    let md=contentCache[key];
-    if(!md){ const res=await fetch(encodeURI(key)); if(!res.ok) throw new Error("HTTP "+res.status); md=await res.text(); contentCache[key]=md; }
+    const md=await loadChapterText(key);
     $("reader-content").innerHTML=marked.parse(md);
     $("reader-content").style.fontSize=fontSize+"px";
     renderCurio(c.products||[]);

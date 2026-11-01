@@ -24,7 +24,11 @@ novel/
   covers/                 # 封面图
   assets/
     marked.min.js         # 本地内置的 Markdown 渲染器（无 CDN 依赖）
+    data.js               # 由 tools/build-embed.js 生成：内联清单+章节正文，使 file:// 双击也能读
     products/             # 植入故事的产品图（从 aurasage 复制）
+  tools/
+    build-embed.js        # 生成 assets/data.js（章节/清单内联，供离线 file:// 打开）
+    verify-file-open.js   # 无头浏览器自检：file:// 与 http:// 两种打开方式是否均正常
   novel/玉灯奇物馆/
     zh/第NN章_xxx.md      # 中文章节
     en/chNN-xxx.md        # 英文章节
@@ -32,13 +36,21 @@ novel/
 
 ## 本地预览
 
-必须用本地静态服务器打开（`file://` 无法直接 fetch 清单）：
+**方式一 · 直接双击（推荐快速查看）**
+直接双击 `index.html` 用浏览器打开即可。站点的清单与全部章节正文已内联进 `assets/data.js`
+（由 `tools/build-embed.js` 生成），因此 `file://` 协议下也能正常读取，不受浏览器 CORS 限制。
+
+**方式二 · 本地静态服务器（内容最新鲜）**
+`http(s)` 模式下站点优先 `fetch` 实时读取 `books.json` / 章节 `.md`，适合边写边看：
 
 ```bash
 # 在项目根目录
 python -m http.server 8765
 # 浏览器访问 http://localhost:8765
 ```
+
+> 注意：新增 / 修改章节后，若想让「双击打开」也能看到最新内容，请重跑
+> `node tools/build-embed.js` 重新生成 `assets/data.js`（线上部署走方式二则无需此步）。
 
 ## 如何新增 / 修改章节
 
@@ -52,7 +64,12 @@ python -m http.server 8765
      "products":["p49","p02"] }
    ```
    `products` 填 AuraSage 产品 id（见 `codex/codex.json`），阅读页会自动在章末渲染「本集奇物」卡片并链接到店铺。
-3. 提交即可，无需构建。
+3. 提交即可，无需构建（线上部署走 `http(s)` 实时读取）。
+   若要让「双击 `index.html`（`file://`）」也包含新章节，额外跑一步：
+   ```bash
+   node tools/build-embed.js
+   ```
+   重新生成 `assets/data.js` 即可。
 
 ## 奇物图鉴（带货）
 
@@ -63,9 +80,9 @@ python -m http.server 8765
 node codex/extract.js
 ```
 
-> **店铺链接**：`books.json` 里的 `shopBase` 目前是占位 `https://aurasage.example.com`，
-> 上线时改成 AuraSage 实际部署地址（Cloudflare Pages / 独立站）即可，产品链接形如
-> `${shopBase}/#/product/p49`。
+> **店铺链接**：`books.json` 里的 `shopBase` 已设为 AuraSage 实际部署地址
+> `https://aurasage-du3.pages.dev/`，产品链接形如 `${shopBase}/#/product/p49`，
+> 上线时若地址变更，直接改 `books.json` 中的 `shopBase` 字段即可。
 
 ## 部署
 
