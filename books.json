@@ -57,6 +57,14 @@
           "zh": "novel/玉灯奇物馆/zh/第05章_卡住的年轻人.md",
           "en": "novel/玉灯奇物馆/en/ch05-the-one-who-was-stuck.md",
           "products": ["p54", "p33"]
+        },
+        {
+          "id": "ch06",
+          "n": 6,
+          "title": { "zh": "第六章 · 来自 Aether 的男人", "en": "Chapter 6 · The Man from Aether" },
+          "zh": "novel/玉灯奇物馆/zh/第06章_来自Aether的男人.md",
+          "en": "novel/玉灯奇物馆/en/ch06-the-man-from-aether.md",
+          "products": ["p48", "p26"]
         }
       ]
     }
