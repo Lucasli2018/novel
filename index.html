@@ -3,723 +3,360 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>中梧小说</title>
+<title>玉灯奇物馆 · Jade Lantern Curio</title>
 <link rel="icon" href="favicon.ico" type="image/x-icon">
-<script src="https://cdn.bootcdn.net/ajax/libs/marked/9.1.6/marked.min.js"></script>
-<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="assets/marked.min.js"></script>
 <style>
-:root {
-    --bg:#f4ecd8;--card:#fbf6ed;--text:#5b4636;--sub:#8b7355;
-    --accent:#5e72e4;--accent-light:rgba(94,114,228,0.12);--border:#e6dcc8;
-    --shadow:0 6px 22px rgba(0,0,0,0.06);--radius-lg:24px;--radius-md:16px;--radius-pill:9999px;
-    --reader-bg:#fbf6ed;--reader-text:#5b4636;
-    --transition:0.3s ease;
+:root{
+  --bg:#f4ecd8;--card:#fbf6ed;--text:#5b4636;--sub:#8b7355;
+  --accent:#b8975a;--accent2:#c23b22;--border:#e6dcc8;
+  --shadow:0 6px 22px rgba(0,0,0,0.06);--radius-lg:24px;--radius-md:16px;--radius-pill:9999px;
+  --reader-bg:#fbf6ed;--reader-text:#5b4636;--transition:0.3s ease;
 }
 [data-theme="light"]{--bg:#f4f6f9;--card:#ffffff;--text:#333;--sub:#666;--border:#eeeeee;--reader-bg:#fff;--reader-text:#333;}
 [data-theme="dark"]{--bg:#121212;--card:#2d2d2d;--text:#e0e0e0;--sub:#aaa;--border:#444;--reader-bg:#202020;--reader-text:#e0e0e0;}
-
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-body{font-family:system-ui,-apple-system,sans-serif;min-height:100vh;background:var(--bg);color:var(--text);padding:16px;transition:var(--transition)}
-.container{max-width:1200px;margin:0 auto}
+body{font-family:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;min-height:100vh;background:var(--bg);color:var(--text);padding:16px;transition:var(--transition)}
+.container{max-width:1100px;margin:0 auto}
+.top-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:16px 22px;margin-bottom:22px;background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);border:1px solid var(--border)}
+.nav-brand{display:flex;align-items:center;gap:10px}
+.nav-brand img{width:42px;height:42px;border-radius:12px;object-fit:cover;box-shadow:var(--shadow)}
+.nav-brand h1{font-size:1.35rem;color:var(--accent);font-weight:700;line-height:1.2}
+.nav-brand .sub{font-size:.72rem;color:var(--sub);font-weight:400}
+.nav-links{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.nav-links a,.nav-links button{text-decoration:none;color:var(--sub);font-size:.85rem;padding:8px 16px;border:1px solid var(--border);border-radius:var(--radius-pill);cursor:pointer;background:transparent;transition:var(--transition);font-family:inherit}
+.nav-links a:hover,.nav-links button:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.lang-btn{padding:8px 14px;border:1px solid var(--border);border-radius:var(--radius-pill);background:transparent;color:var(--text);cursor:pointer;font-size:.85rem;transition:var(--transition);font-family:inherit}
+.lang-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.theme-cycle{border:1px solid var(--border);border-radius:var(--radius-pill);background:transparent;color:var(--text);cursor:pointer;padding:8px 14px;font-size:.9rem;font-family:inherit}
 
-.top-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;padding:20px 24px;margin-bottom:24px;background:var(--card);border-radius:var(--radius-lg);box-shadow:var(--shadow);border:1px solid var(--border)}
-.nav-brand h1{display:flex;align-items:center;gap:8px;font-size:1.6rem;color:var(--accent);font-weight:700}
-.nav-links{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-.nav-links a{text-decoration:none;color:var(--sub);font-size:0.88rem;padding:9px 18px;border:1px solid var(--border);border-radius:var(--radius-pill);display:flex;gap:7px;align-items:center;transition:var(--transition)}
-.nav-links a:hover{background:var(--accent);color:#fff;border-color:var(--accent);transform:translateY(-2px);box-shadow:0 4px 16px rgba(94,114,228,0.35)}
-.theme-btn{padding:7px 14px;border:1px solid var(--border);border-radius:10px;background:transparent;color:var(--text);cursor:pointer;transition:var(--transition)}
-.theme-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
-.theme-btn:hover{background:var(--accent-light)}
-
-.search-bar{width:100%;margin-bottom:16px;display:flex;gap:10px;align-items:center}
-#searchInput{flex:1;padding:12px 20px;border:1px solid var(--border);border-radius:var(--radius-pill);background:var(--card);color:var(--text);font-size:0.95rem;outline:none;transition:var(--transition)}
-#searchInput:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-light)}
-#searchBtn,#resetBtn{padding:12px 24px;border-radius:var(--radius-pill);cursor:pointer;transition:var(--transition);font-weight:500;border:none}
-#searchBtn{background:var(--accent);color:#fff}
-#searchBtn:hover{background:#4a61d0;box-shadow:0 4px 12px rgba(94,114,228,0.4)}
-#resetBtn{border:1px solid var(--border);background:transparent;color:var(--text)}
-#resetBtn:hover{background:var(--accent-light)}
-
-.action-bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-bottom:20px}
-.mode-switch{display:flex;gap:8px;align-items:center}
-.mode-btn,.sort-select{padding:10px 20px;border:1px solid var(--border);border-radius:14px;background:transparent;color:var(--text);cursor:pointer;font-size:0.88rem;transition:var(--transition);font-weight:500}
-.mode-btn:hover,.sort-select:hover{background:var(--accent-light);transform:translateY(-1px)}
-.mode-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 4px 12px rgba(94,114,228,0.32)}
-.write-btn{background:var(--accent);color:#fff;border-color:var(--accent);text-decoration:none;padding:10px 20px;border-radius:14px;font-size:0.88rem;font-weight:500;transition:var(--transition)}
-.write-btn:hover{background:#4a61d0;box-shadow:0 4px 12px rgba(94,114,228,0.4)}
-
-.status-tip{text-align:center;color:var(--sub);padding:10px;margin-bottom:20px;font-size:0.95rem}
-.loader{width:40px;height:40px;border:4px solid var(--border);border-top-color:var(--accent);border-radius:50%;margin:24px auto;animation:spin 1s linear infinite}
+.status-tip{text-align:center;color:var(--sub);padding:10px;margin-bottom:16px;font-size:.95rem}
+.loader{width:40px;height:40px;border:4px solid var(--border);border-top-color:var(--accent);border-radius:50%;margin:30px auto;animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-.novel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px;margin-bottom:32px}
-.book-group-title{grid-column:1/-1;margin:16px 0 12px;font-size:1.3rem;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:8px;padding-bottom:8px;border-bottom:1px solid var(--border)}
-.novel-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-md);padding:24px;cursor:pointer;transition:all var(--transition);position:relative;overflow:hidden}
-.novel-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:4px;background:var(--accent);transform:scaleX(0);transition:transform 0.3s ease;transform-origin:left}
-.novel-card:hover{transform:translateY(-6px);box-shadow:0 12px 32px rgba(0,0,0,0.12);border-color:var(--accent)}
-.novel-card:hover::before{transform:scaleX(1)}
-.card-book-tag{font-size:0.78rem;color:var(--accent);margin-bottom:6px;font-weight:500}
-.novel-title{font-size:1.18rem;font-weight:600;margin-bottom:8px;line-height:1.4}
-.novel-author{font-size:0.82rem;color:var(--sub);margin-bottom:12px}
-.novel-meta{font-size:0.86rem;color:var(--sub);padding-top:12px;border-top:1px solid var(--border);opacity:0.8}
+/* bookshelf */
+.book-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;margin-bottom:30px}
+.book-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;transition:all .3s ease;display:flex;flex-direction:column}
+.book-card:hover{transform:translateY(-6px);box-shadow:0 14px 34px rgba(0,0,0,.14);border-color:var(--accent)}
+.book-cover{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;background:linear-gradient(135deg,#1a1a2e,#2a2418)}
+.book-body{padding:18px 20px 22px;display:flex;flex-direction:column;gap:8px;flex:1}
+.book-title{font-size:1.2rem;font-weight:700;color:var(--text)}
+.book-author{font-size:.82rem;color:var(--sub)}
+.book-intro{font-size:.88rem;color:var(--sub);line-height:1.6;flex:1;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.book-meta{font-size:.8rem;color:var(--accent);margin-top:4px}
 
-#reader-view{display:none;background:var(--reader-bg);padding:32px;border-radius:var(--radius-lg);box-shadow:var(--shadow);border:1px solid var(--border);margin-top:20px}
-.reader-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
-.reader-title{font-size:1.8rem;font-weight:700;color:var(--accent)}
-.back-btn{background:transparent;border:1px solid var(--border);color:var(--accent);padding:10px 20px;border-radius:14px;cursor:pointer;transition:var(--transition);font-size:0.9rem}
-.back-btn:hover{background:var(--accent);color:#fff;transform:translateY(-2px)}
-.reader-meta{text-align:center;color:var(--sub);margin-bottom:24px;line-height:1.6;font-size:0.95rem}
+/* chapter list */
+.back-btn{background:transparent;border:1px solid var(--border);color:var(--accent);padding:9px 18px;border-radius:14px;cursor:pointer;font-size:.9rem;font-family:inherit;transition:var(--transition)}
+.back-btn:hover{background:var(--accent);color:#fff}
+.book-head{display:flex;gap:20px;margin-bottom:24px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-md);padding:20px;box-shadow:var(--shadow)}
+.book-head img{width:140px;aspect-ratio:3/4;object-fit:cover;border-radius:12px;flex-shrink:0}
+.book-head .bh-info{flex:1}
+.book-head h2{font-size:1.5rem;color:var(--accent);margin-bottom:4px}
+.book-head .author{color:var(--sub);font-size:.85rem;margin-bottom:10px}
+.book-head .intro{color:var(--sub);font-size:.92rem;line-height:1.7}
+.chapter-list{display:flex;flex-direction:column;gap:10px}
+.chapter-item{display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--card);border:1px solid var(--border);border-radius:14px;cursor:pointer;transition:var(--transition)}
+.chapter-item:hover{background:var(--accent);color:#fff;border-color:var(--accent);transform:translateX(4px)}
+.chapter-item .ch-no{font-size:.8rem;color:var(--accent);font-weight:700;min-width:40px}
+.chapter-item:hover .ch-no{color:#fff}
+.chapter-item .ch-title{flex:1;font-size:1rem}
 
-.reader-settings{display:flex;flex-wrap:wrap;gap:16px;padding:20px 24px;background:rgba(0,0,0,0.03);border-radius:var(--radius-md);margin-bottom:28px;border:1px solid var(--border);align-items:center}
-.reader-settings span{color:var(--sub);font-size:0.94rem;white-space:nowrap}
-.setting-btn-sm{padding:8px 14px;border:1px solid var(--border);border-radius:10px;background:transparent;color:var(--text);cursor:pointer;font-size:0.85rem;transition:var(--transition)}
-.setting-btn-sm:hover{background:var(--accent-light)}
-.setting-btn-sm.active{background:var(--accent);color:#fff;border-color:var(--accent)}
-#pageWordCount{width:90px;padding:8px 12px;border:1px solid var(--border);border-radius:10px;background:var(--card);color:var(--text);font-size:0.9rem;outline:none;text-align:center;transition:var(--transition)}
-#pageWordCount:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-light)}
+/* reader */
+#reader-view{display:none;background:var(--reader-bg);padding:28px;border-radius:var(--radius-lg);box-shadow:var(--shadow);border:1px solid var(--border);margin-top:14px}
+.reader-top{display:flex;align-items:center;gap:14px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.reader-top img{width:48px;height:48px;border-radius:10px;object-fit:cover}
+.reader-top .rt-title{font-size:1.1rem;font-weight:700;color:var(--accent)}
+.reader-top .rt-sub{font-size:.8rem;color:var(--sub)}
+#reader-content{line-height:1.9;word-break:break-word;padding:6px 0;color:var(--reader-text);font-size:18px;max-width:760px;margin:0 auto}
+#reader-content h1,#reader-content h2,#reader-content h3{color:var(--accent);margin:18px 0 10px}
+#reader-content p{margin-bottom:14px}
+#reader-content blockquote{border-left:3px solid var(--accent);padding:6px 16px;margin:14px 0;color:var(--sub);background:rgba(184,151,90,.08);border-radius:0 8px 8px 0}
+#reader-content hr{border:none;border-top:1px solid var(--border);margin:20px 0}
+#reader-content img{max-width:100%;border-radius:10px}
+.reader-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:14px 18px;background:rgba(0,0,0,.03);border-radius:14px;margin:18px auto;max-width:760px}
+.reader-tools span{color:var(--sub);font-size:.85rem}
+.reader-tools button{padding:7px 13px;border:1px solid var(--border);border-radius:10px;background:transparent;color:var(--text);cursor:pointer;font-size:.82rem;font-family:inherit;transition:var(--transition)}
+.reader-tools button:hover{background:var(--accent);color:#fff}
+.chap-nav{display:flex;justify-content:space-between;gap:12px;max-width:760px;margin:22px auto 0}
+.chap-nav button{flex:1;padding:13px;border:1px solid var(--border);border-radius:14px;background:var(--card);color:var(--text);cursor:pointer;font-size:.9rem;transition:var(--transition);font-family:inherit}
+.chap-nav button:hover:not(:disabled){background:var(--accent);color:#fff}
+.chap-nav button:disabled{opacity:.4;cursor:not-allowed}
 
-#reader-content{line-height:1.8;word-break:break-word;padding:10px 0;color:var(--reader-text);font-size:18px}
-#reader-content h1,#reader-content h2,#reader-content h3{color:var(--accent);margin:16px 0 8px}
-#reader-content p{margin-bottom:12px;text-indent:2em}
-#reader-content pre{background:rgba(0,0,0,0.05);padding:14px;border-radius:8px;margin:12px 0;overflow-x:auto}
-#reader-content code{background:rgba(0,0,0,0.05);padding:2px 6px;border-radius:4px;font-size:0.9em}
+/* curio callout */
+.curio{margin:26px auto 0;max-width:760px;background:linear-gradient(135deg,rgba(184,151,90,.12),rgba(194,59,34,.08));border:1px solid var(--accent);border-radius:16px;padding:18px 20px}
+.curio h4{color:var(--accent2);font-size:.95rem;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.curio-list{display:flex;flex-wrap:wrap;gap:14px}
+.curio-item{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px;width:calc(50% - 7px);text-decoration:none;color:var(--text);transition:var(--transition)}
+.curio-item:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.1)}
+.curio-item img{width:56px;height:56px;object-fit:cover;border-radius:8px;flex-shrink:0}
+.curio-item .ci-name{font-size:.9rem;font-weight:600}
+.curio-item .ci-meaning{font-size:.78rem;color:var(--sub);line-height:1.4;margin-top:2px}
 
-.page-control{display:flex;gap:16px;justify-content:center;align-items:center;margin-top:24px;padding-top:16px;border-top:1px solid var(--border)}
-.page-info{color:var(--sub);font-size:0.9rem}
+/* codex */
+.codex-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px;margin-top:10px}
+.codex-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;display:flex;flex-direction:column;transition:all .3s ease}
+.codex-card:hover{transform:translateY(-5px);box-shadow:0 12px 30px rgba(0,0,0,.12);border-color:var(--accent)}
+.codex-card img{width:100%;aspect-ratio:1/1;object-fit:cover;background:#1a1a2e}
+.codex-body{padding:14px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.codex-body .cx-name{font-size:1rem;font-weight:700;color:var(--text)}
+.codex-body .cx-el{font-size:.72rem;color:var(--accent);text-transform:capitalize}
+.codex-body .cx-meaning{font-size:.84rem;color:var(--sub);line-height:1.55;flex:1}
+.codex-body a{margin-top:6px;text-align:center;text-decoration:none;background:var(--accent);color:#fff;padding:9px;border-radius:10px;font-size:.82rem;transition:var(--transition)}
+.codex-body a:hover{background:var(--accent2)}
 
-.setting-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:999;display:none;align-items:center;justify-content:center}
-.setting-box{width:92%;max-width:600px;background:var(--card);border-radius:var(--radius-lg);padding:32px;border:1px solid var(--border);box-shadow:0 12px 40px rgba(0,0,0,0.18);animation:modalIn 0.35s cubic-bezier(0.34,1.56,0.64,1) forwards}
-@keyframes modalIn{from{transform:scale(0.9) translateY(20px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
-.setting-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;padding-bottom:12px;border-bottom:1px solid var(--border)}
-.setting-header h2{margin:0;color:var(--accent);font-weight:700;font-size:1.4rem}
-.close-setting{background:transparent;border:none;font-size:1.8rem;cursor:pointer;color:var(--sub);width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:var(--transition)}
-.close-setting:hover{background:var(--accent-light);color:var(--accent)}
-.setting-item{margin-bottom:24px}
-.setting-item label{display:block;margin-bottom:8px;color:var(--sub);font-weight:500;font-size:0.95rem}
-.setting-item select,.setting-item input{width:100%;padding:12px 16px;border:1px solid var(--border);border-radius:12px;background:var(--card);color:var(--text);font-size:0.95rem;transition:var(--transition);outline:none}
-.setting-item select:focus,.setting-item input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-light)}
-.save-setting-btn{margin-top:8px;width:100%;padding:14px;background:var(--accent);color:#fff;border:none;border-radius:14px;font-size:1rem;font-weight:600;cursor:pointer;transition:var(--transition)}
-.save-setting-btn:hover{background:#4a61d0;transform:translateY(-2px);box-shadow:0 6px 16px rgba(94,114,228,0.4)}
-
-.error-tip{color:#e74c3c;background:rgba(231,76,60,0.1);padding:16px 20px;border-radius:12px;margin:20px 0;text-align:center;border:1px solid rgba(231,76,60,0.2)}
-
-@media(max-width:768px){
-    body{padding:12px}
-    .top-nav{flex-direction:column;text-align:center;padding:16px 20px}
-    .action-bar{flex-direction:column;align-items:stretch}
-    .novel-grid{grid-template-columns:1fr;gap:16px}
-    #reader-view{padding:20px}
-    .reader-title{font-size:1.4rem}
-    .setting-box{padding:24px}
-    .reader-settings{gap:12px;padding:16px}
+.error-tip{color:#c23b22;background:rgba(194,59,34,.1);padding:16px 20px;border-radius:12px;margin:20px 0;text-align:center}
+.search-bar{width:100%;margin-bottom:18px;display:flex;gap:10px}
+#searchInput{flex:1;padding:11px 18px;border:1px solid var(--border);border-radius:var(--radius-pill);background:var(--card);color:var(--text);font-size:.95rem;outline:none;font-family:inherit}
+#searchInput:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(184,151,90,.2)}
+.shop-link{color:var(--accent2)!important;font-weight:600}
+@media(max-width:640px){
+  .book-head{flex-direction:column}
+  .book-head img{width:120px;align-self:center}
+  .curio-item{width:100%}
+  #reader-content{font-size:16px}
 }
 </style>
 </head>
 <body data-theme="sepia">
 <div class="container">
-    <nav class="top-nav">
-        <div class="nav-brand"><h1><i class="fa-solid fa-book-open"></i>中梧小说</h1></div>
-        <div class="nav-links">
-            <a href="editor.html"><i class="fa-solid fa-pen-to-square"></i> 写小说</a>
-            <div style="display:flex;gap:6px">
-                <button class="theme-btn" data-theme="light" onclick="setTheme('light',this)">☀</button>
-                <button class="theme-btn active" data-theme="sepia" onclick="setTheme('sepia',this)">📖</button>
-                <button class="theme-btn" data-theme="dark" onclick="setTheme('dark',this)">🌙</button>
-            </div>
-        </div>
-    </nav>
-
-    <div class="search-bar">
-        <input id="searchInput" placeholder="搜索标题/作者/书籍/正文">
-        <button id="searchBtn" onclick="doSearch()"><i class="fa-solid fa-magnifying-glass"></i> 搜索</button>
-        <button id="resetBtn" onclick="resetSearch()"><i class="fa-solid fa-rotate-left"></i> 重置</button>
+  <nav class="top-nav">
+    <div class="nav-brand" onclick="goShelf()" style="cursor:pointer">
+      <img id="brandCover" src="covers/jade-lantern.png" alt="">
+      <div>
+        <h1 id="siteTitle">玉灯奇物馆</h1>
+        <div class="sub" id="siteSub">Jade Lantern Curio</div>
+      </div>
     </div>
-
-    <div class="action-bar">
-        <div class="mode-switch">
-            <button class="mode-btn active" onclick="switchViewMode('book',this)">📚 书籍模式</button>
-            <button class="mode-btn" onclick="switchViewMode('chapter',this)">📑 所有篇章</button>
-            <select class="sort-select" id="sortSelect" onchange="changeSortMode()">
-                <option value="custom">默认排序（自定义）</option>
-                <option value="natural">章节数字顺序</option>
-                <option value="name">文件名升序</option>
-            </select>
-        </div>
-        <div>
-            <a href="editor.html" class="write-btn"><i class="fa-solid fa-pen"></i> 写小说</a>
-            <button class="mode-btn" onclick="openSettingModal()"><i class="fa-solid fa-gear"></i> 全局设置</button>
-        </div>
+    <div class="nav-links">
+      <a href="javascript:goShelf()" id="navShelf">书架</a>
+      <a href="javascript:goCodex()" id="navCodex">奇物图鉴</a>
+      <a href="javascript:void(0)" class="shop-link" id="navShop" target="_blank">店铺 ↗</a>
+      <button class="lang-btn" id="langZh" onclick="setLang('zh')">中文</button>
+      <button class="lang-btn" id="langEn" onclick="setLang('en')">EN</button>
+      <button class="theme-cycle" id="themeBtn" onclick="cycleTheme()" title="切换主题">📖</button>
     </div>
+  </nav>
 
-    <div id="statusTip" class="status-tip">📖 加载中 (0/0)...</div>
-    <div id="loader" class="loader" style="display:none"></div>
-    <div id="novelList" class="novel-grid"></div>
+  <div id="searchBar" class="search-bar" style="display:none">
+    <input id="searchInput" placeholder="搜索书名 / 章节…">
+  </div>
 
-    <!-- 阅读视图 -->
-    <div id="reader-view">
-        <div class="reader-header">
-            <button class="back-btn" onclick="backToList()"><i class="fa-solid fa-arrow-left"></i> 返回书架</button>
-            <h2 class="reader-title" id="readerTitle"></h2>
-            <div style="width:100px"></div>
-        </div>
-        <div class="reader-meta" id="readerMeta"></div>
+  <div id="statusTip" class="status-tip"></div>
+  <div id="loader" class="loader" style="display:none"></div>
+  <div id="mainView"></div>
 
-        <div class="reader-settings">
-            <span>阅读模式：</span>
-            <button class="setting-btn-sm active" data-readmode="scroll" onclick="switchReadMode('scroll',this)">完整滚动</button>
-            <button class="setting-btn-sm" data-readmode="page" onclick="switchReadMode('page',this)">分页阅读</button>
-            <span style="margin-left:10px">单页字数</span>
-            <input type="number" id="pageWordCount" value="1200" min="400" max="3000" onchange="updatePagination()">
-            <span style="margin-left:10px">字号：</span>
-            <button class="setting-btn-sm" onclick="changeFontSize(-2)">A-</button>
-            <button class="setting-btn-sm" onclick="changeFontSize(2)">A+</button>
-        </div>
-
-        <div id="reader-content"></div>
-
-        <div class="page-control" id="pageControl" style="display:none">
-            <button class="setting-btn-sm" onclick="prevPage()"><i class="fa-solid fa-chevron-left"></i> 上一页</button>
-            <span class="page-info" id="pageInfo">第 1 页 / 共 1 页</span>
-            <button class="setting-btn-sm" onclick="nextPage()">下一页 <i class="fa-solid fa-chevron-right"></i></button>
-        </div>
+  <div id="reader-view">
+    <div class="reader-top">
+      <img id="rCover" src="" alt="">
+      <div>
+        <div class="rt-title" id="rTitle"></div>
+        <div class="rt-sub" id="rSub"></div>
+      </div>
+      <div style="flex:1"></div>
+      <button class="back-btn" onclick="backToBook()"><i class="fa fa-arrow-left"></i> <span id="backLabel">返回</span></button>
     </div>
-</div>
-
-<!-- 全局设置弹窗 -->
-<div class="setting-modal" id="settingModal">
-    <div class="setting-box">
-        <div class="setting-header">
-            <h2>全局阅读设置</h2>
-            <button class="close-setting" onclick="closeSettingModal()">×</button>
-        </div>
-        <div class="setting-item">
-            <label>默认字号</label>
-            <select id="setFontSize">
-                <option value="16">16px</option>
-                <option value="18" selected>18px</option>
-                <option value="20">20px</option>
-                <option value="22">22px</option>
-            </select>
-        </div>
-        <div class="setting-item">
-            <label>默认行距</label>
-            <select id="setLineHeight">
-                <option value="1.6">紧凑 1.6</option>
-                <option value="1.8" selected>标准 1.8</option>
-                <option value="2.0">宽松 2.0</option>
-            </select>
-        </div>
-        <div class="setting-item">
-            <label>默认主题</label>
-            <select id="setDefaultTheme">
-                <option value="light">日间模式</option>
-                <option value="sepia" selected>护眼模式</option>
-                <option value="dark">夜间模式</option>
-            </select>
-        </div>
-        <div class="setting-item">
-            <label>默认排序方式</label>
-            <select id="setDefaultSort">
-                <option value="custom" selected>自定义排序</option>
-                <option value="natural">章节数字顺序</option>
-                <option value="name">文件名升序</option>
-            </select>
-        </div>
-        <div class="setting-item">
-            <label>分页默认字数</label>
-            <input type="number" id="setDefaultWords" value="1200" min="400" max="3000">
-        </div>
-        <button class="save-setting-btn" onclick="saveGlobalSettings()">保存设置</button>
+    <div id="reader-content"></div>
+    <div class="curio" id="curioBox" style="display:none">
+      <h4>🔮 <span id="curioTitle">本集奇物</span></h4>
+      <div class="curio-list" id="curioList"></div>
     </div>
+    <div class="reader-tools" id="readerTools">
+      <span id="fontLabel">字号</span>
+      <button onclick="changeFontSize(-2)">A-</button>
+      <button onclick="changeFontSize(2)">A+</button>
+      <span id="themeLabel" style="margin-left:10px">主题</span>
+      <button onclick="cycleTheme()">📖 / ☀ / 🌙</button>
+    </div>
+    <div class="chap-nav">
+      <button id="prevChap" onclick="navChapter(-1)">← <span id="prevLabel">上一章</span></button>
+      <button id="nextChap" onclick="navChapter(1)"><span id="nextLabel">下一章</span> →</button>
+    </div>
+  </div>
 </div>
 
 <script>
-// ===================== 全局配置 =====================
-const CONFIG = {
-    GH_USER: "Youreln",
-    GH_REPO: "novel",
-    GH_BRANCH: "main",
-    GH_API: "https://api.github.com/repos",
-    CDN_BASE: "https://cdn.jsdelivr.net/gh/Youreln/novel@main/",
-    SORT_PATH: "novel/sort.json", // sort.json 固定路径
-    MAX_CONCURRENT: 6,
-    STORAGE_KEY: "zw_novel_setting"
+// ============ 配置与状态 ============
+const LS_LANG="jl_lang", LS_THEME="jl_theme", LS_FONT="jl_font";
+let DATA=null, CODEX=null;
+let lang = localStorage.getItem(LS_LANG) || "zh";
+let themeIdx = 0; const THEMES=["sepia","light","dark"]; const THEME_ICON={sepia:"📖",light:"☀",dark:"🌙"};
+const themeSaved = localStorage.getItem(LS_THEME);
+if(themeSaved) themeIdx = THEMES.indexOf(themeSaved)>=0?THEMES.indexOf(themeSaved):0;
+let fontSize = parseInt(localStorage.getItem(LS_FONT))||18;
+let view="shelf", curBook=null, curChap=-1, contentCache={};
+
+const $=id=>document.getElementById(id);
+const t=z=>lang==="zh"?z.zh:z.en;
+const showStatus=s=>$("statusTip").textContent=s;
+const showError=s=>$("statusTip").innerHTML=`<div class="error-tip">${s}</div>`;
+
+// ============ 初始化 ============
+window.onload=async()=>{
+  applyTheme(); applyLangButtons();
+  $("loader").style.display="block";
+  showStatus(lang==="zh"?"加载中…":"Loading…");
+  try{
+    const [b,c]=await Promise.all([fetch("books.json").then(r=>r.json()), fetch("codex/codex.json").then(r=>r.json())]);
+    DATA=b; CODEX=c;
+    $("siteTitle").textContent=t({zh:DATA.siteTitle.split(" · ")[0],en:DATA.siteTitle.split(" · ")[1]||DATA.siteTitle});
+    $("siteSub").textContent=t({zh:"Jade Lantern Curio",en:"玉灯奇物馆"});
+    $("navShop").href=DATA.shopBase||"#";
+    renderShelf();
+  }catch(e){
+    showError((lang==="zh"?"加载失败：":"Load failed: ")+e.message+"<br><small>"+(lang==="zh"?"请通过本地服务器（如 python -m http.server）打开，直接双击 file:// 无法读取清单。":"Open via a local server (e.g. python -m http.server); file:// cannot read the manifest.")+"</small>");
+  }finally{ $("loader").style.display="none"; }
 };
 
-let allNovels = [];
-let filterNovels = [];
-let sortOrder = [];
-let currentViewMode = "book";
-let currentSortMode = "custom";
-let currentNovel = null;
-let currentPage = 1;
-let totalPages = 1;
-let pageContents = [];
-let fontSize = 18;
-
-const $ = id => document.getElementById(id);
-const statusTip = $("statusTip");
-const loader = $("loader");
-const novelListEl = $("novelList");
-const sortSelect = $("sortSelect");
-const searchInput = $("searchInput");
-
-// ===================== 工具函数 =====================
-function encodePath(p) { return encodeURI(p) }
-
-// 自然排序：识别章节数字，按1、2、3...顺序排列
-function naturalSort(a, b) {
-    const reg = /(\d+)/g;
-    const arrA = a.fileName.split(reg);
-    const arrB = b.fileName.split(reg);
-    for (let i = 0; i < Math.max(arrA.length, arrB.length); i++) {
-        const valA = arrA[i] || "";
-        const valB = arrB[i] || "";
-        const numA = parseInt(valA);
-        const numB = parseInt(valB);
-        if (!isNaN(numA) && !isNaN(numB)) {
-            if (numA !== numB) return numA - numB;
-        } else {
-            const cmp = valA.localeCompare(valB, "zh-CN");
-            if (cmp !== 0) return cmp;
-        }
-    }
-    return 0;
+// ============ 视图渲染 ============
+function renderShelf(filter){
+  view="shelf"; $("reader-view").style.display="none"; $("searchBar").style.display="flex";
+  const q=(filter||"").toLowerCase();
+  const books=DATA.books.filter(b=>{
+    if(!q) return true;
+    const title=t(b.langs).toLowerCase();
+    const intro=t(b.intro).toLowerCase();
+    const ch=b.chapters.some(c=>t(c.title).toLowerCase().includes(q));
+    return title.includes(q)||intro.includes(q)||ch;
+  });
+  let html=`<div class="book-grid">`;
+  books.forEach(b=>{
+    const title=t(b.langs), intro=t(b.intro), author=b.author;
+    html+=`<div class="book-card" onclick="openBook('${b.id}')">
+      <img class="book-cover" src="${b.cover}" alt="${title}" onerror="this.style.background='linear-gradient(135deg,#1a1a2e,#2a2418)'">
+      <div class="book-body">
+        <div class="book-title">${title}</div>
+        <div class="book-author">✍️ ${author}</div>
+        <div class="book-intro">${intro}</div>
+        <div class="book-meta">📚 ${b.chapters.length} ${lang==="zh"?"章":"chapters"}</div>
+      </div></div>`;
+  });
+  html+=`</div>`;
+  $("mainView").innerHTML=html;
+  showStatus(books.length? (lang==="zh"?`共 ${books.length} 部作品`:`${books.length} book(s)`):(lang==="zh"?"没有匹配的作品":"No matching books"));
 }
 
-function showStatus(text) { statusTip.textContent = text }
-function showError(text) { statusTip.innerHTML = `<div class="error-tip">${text}</div>` }
-
-// ===================== 核心：实时读取sort.json（走GitHub API绕过CDN缓存） =====================
-async function loadSortConfig() {
-    try {
-        // 加时间戳强制绕过缓存，实时读取最新版本
-        const timestamp = Date.now();
-        const url = `${CONFIG.GH_API}/${CONFIG.GH_USER}/${CONFIG.GH_REPO}/contents/${CONFIG.SORT_PATH}?t=${timestamp}`;
-        const res = await fetch(url, {
-            headers: { "Accept": "application/vnd.github.raw" }
-        });
-        
-        if (!res.ok) {
-            console.log("无sort.json配置，使用自然排序兜底");
-            return [];
-        }
-        
-        const raw = await res.text();
-        const json = JSON.parse(raw);
-        // 直接使用原始路径，不做多余解码，确保完全匹配
-        return Array.isArray(json.order) ? json.order : [];
-    } catch (e) {
-        console.warn("读取sort.json失败，使用自然排序：", e.message);
-        return [];
-    }
+function openBook(id){
+  const b=DATA.books.find(x=>x.id===id); if(!b) return;
+  curBook=b; view="book"; $("reader-view").style.display="none"; $("searchBar").style.display="none";
+  const title=t(b.langs), intro=t(b.intro);
+  let html=`<button class="back-btn" onclick="goShelf()" style="margin-bottom:16px">← ${lang==="zh"?"返回书架":"Back to shelf"}</button>
+    <div class="book-head">
+      <img src="${b.cover}" alt="${title}" onerror="this.style.background='linear-gradient(135deg,#1a1a2e,#2a2418)'">
+      <div class="bh-info">
+        <h2>${title}</h2>
+        <div class="author">✍️ ${b.author}</div>
+        <div class="intro">${intro}</div>
+      </div>
+    </div>
+    <div class="chapter-list">`;
+  b.chapters.forEach((c,i)=>{
+    html+=`<div class="chapter-item" onclick="openReader('${b.id}',${i})">
+      <div class="ch-no">${String(c.n).padStart(2,"0")}</div>
+      <div class="ch-title">${t(c.title)}</div></div>`;
+  });
+  html+=`</div>`;
+  $("mainView").innerHTML=html;
+  showStatus("");
 }
 
-// 获取仓库文件树
-async function fetchRepoTree() {
-    try {
-        const url = `${CONFIG.GH_API}/${CONFIG.GH_USER}/${CONFIG.GH_REPO}/git/trees/${CONFIG.GH_BRANCH}?recursive=1`;
-        const res = await fetch(url);
-        if (!res.ok) throw new Error(`仓库访问失败: HTTP ${res.status}`);
-        const data = await res.json();
-        return data.tree || [];
-    } catch (e) {
-        console.error("获取文件树失败:", e);
-        throw e;
-    }
+async function openReader(bookId,idx){
+  const b=DATA.books.find(x=>x.id===bookId); if(!b) return;
+  curBook=b; curChap=idx; view="reader";
+  const c=b.chapters[idx];
+  const bTitle=t(b.langs), cTitle=t(c.title);
+  $("rCover").src=b.cover;
+  $("rTitle").textContent=bTitle;
+  $("rSub").textContent=cTitle;
+  $("backLabel").textContent=lang==="zh"?"返回书目":"Back";
+  $("reader-content").innerHTML=`<div class="loader"></div>`;
+  $("reader-view").style.display="block"; $("mainView").innerHTML="";
+  window.scrollTo({top:0,behavior:"smooth"});
+  try{
+    const key=c[lang];
+    let md=contentCache[key];
+    if(!md){ const res=await fetch(encodeURI(key)); if(!res.ok) throw new Error("HTTP "+res.status); md=await res.text(); contentCache[key]=md; }
+    $("reader-content").innerHTML=marked.parse(md);
+    $("reader-content").style.fontSize=fontSize+"px";
+    renderCurio(c.products||[]);
+    $("prevChap").disabled=idx===0; $("nextChap").disabled=idx===b.chapters.length-1;
+    $("prevLabel").textContent=lang==="zh"?"上一章":"Prev"; $("nextLabel").textContent=lang==="zh"?"下一章":"Next";
+    showStatus("");
+  }catch(e){
+    $("reader-content").innerHTML=`<div class="error-tip">${lang==="zh"?"章节加载失败：":"Chapter load failed: "}${e.message}<br><small>${lang==="zh"?"请通过本地服务器打开":"Use a local server"}</small></div>`;
+  }
 }
 
-// 批量加载小说内容
-async function batchLoadNovels(fileList) {
-    const results = [];
-    let loaded = 0;
-    const total = fileList.length;
-
-    async function worker() {
-        while (fileList.length > 0) {
-            const filePath = fileList.shift();
-            try {
-                const cdnUrl = CONFIG.CDN_BASE + encodePath(filePath);
-                const res = await fetch(cdnUrl);
-                if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                
-                const rawText = await res.text();
-                const metaMatch = rawText.match(/<!--\s*ZW_META:\s*(\{[\s\S]*?\})\s*-->/);
-                let meta = { title: "", author: "", book: "未分类" };
-                
-                if (metaMatch) {
-                    try { meta = JSON.parse(metaMatch[1]); } catch(e) {}
-                }
-                
-                const fileName = filePath.split("/").pop();
-                const pathParts = filePath.replace("novel/", "").split("/");
-                const bookName = pathParts.length >= 2 ? pathParts[0] : "未分类";
-                
-                results.push({
-                    path: filePath, // 路径保持原始格式，和sort.json完全一致
-                    fileName: fileName,
-                    title: meta.title || fileName.replace(/\.(md|txt)$/i, ""),
-                    author: meta.author || "佚名",
-                    book: meta.book || bookName,
-                    content: rawText.replace(/<!--\s*ZW_META:[\s\S]*?-->\s*/, "").trim(),
-                    rawContent: rawText
-                });
-            } catch (e) {
-                console.warn(`跳过加载失败文件: ${filePath}`, e.message);
-            }
-            
-            loaded++;
-            showStatus(`📖 加载中 (${loaded}/${total})...`);
-        }
-    }
-
-    const workers = [];
-    const concurrency = Math.min(CONFIG.MAX_CONCURRENT, total);
-    for (let i = 0; i < concurrency; i++) {
-        workers.push(worker());
-    }
-    await Promise.all(workers);
-    
-    return results;
+function renderCurio(ids){
+  if(!ids.length||!CODEX){ $("curioBox").style.display="none"; return; }
+  const items=ids.map(id=>CODEX.find(p=>p.id===id)).filter(Boolean);
+  if(!items.length){ $("curioBox").style.display="none"; return; }
+  let html="";
+  items.forEach(p=>{
+    const name=p.nameZh||p.name, meaning=p.meaningZh||p.meaning;
+    const url=`${DATA.shopBase}/#/product/${p.id}`;
+    html+=`<a class="curio-item" href="${url}" target="_blank" rel="noopener">
+      <img src="${p.image}" alt="${name}" onerror="this.style.background='#1a1a2e'">
+      <div><div class="ci-name">${name}</div><div class="ci-meaning">${meaning}</div></div></a>`;
+  });
+  $("curioList").innerHTML=html;
+  $("curioTitle").textContent=lang==="zh"?"本集奇物 · Curio of this chapter":"Curio of this chapter";
+  $("curioBox").style.display="block";
 }
 
-// 主加载入口
-async function loadAllData() {
-    loader.style.display = "block";
-    showStatus("📖 加载中 (0/0)...");
-    
-    try {
-        // 并行加载文件树 + 实时读取排序配置
-        const [tree, sortConfig] = await Promise.all([
-            fetchRepoTree(),
-            loadSortConfig()
-        ]);
-        
-        sortOrder = sortConfig;
-        
-        // 筛选有效小说文件
-        const novelFiles = tree
-            .filter(item => {
-                const path = item.path;
-                const name = path.split("/").pop();
-                return item.type === "blob"
-                    && path.startsWith("novel/")
-                    && !name.startsWith(".")
-                    && /\.(md|txt)$/i.test(name)
-                    && name !== "sort.json";
-            })
-            .map(item => item.path); // 保持原始路径，不做解码
-        
-        if (novelFiles.length === 0) {
-            showError("仓库novel目录下未找到小说文件");
-            loader.style.display = "none";
-            return;
-        }
-        
-        allNovels = await batchLoadNovels(novelFiles);
-        filterNovels = [...allNovels];
-        
-        const sortTypeText = currentSortMode === "custom" && sortOrder.length > 0 
-            ? "自定义排序" 
-            : currentSortMode === "natural" ? "章节数字顺序" : "文件名升序";
-        showStatus(`✅ 加载完成，共 ${allNovels.length} 篇小说（${sortTypeText}）`);
-        renderNovelList();
-    } catch (e) {
-        console.error("加载失败:", e);
-        showError(`加载失败：${e.message}，请检查网络或仓库配置`);
-    } finally {
-        loader.style.display = "none";
-    }
+function navChapter(d){
+  const ni=curChap+d;
+  if(ni>=0 && ni<curBook.chapters.length) openReader(curBook.id,ni);
 }
 
-// ===================== 渲染列表（修复排序逻辑） =====================
-function sortNovels(list) {
-    const sorted = [...list];
-    if (currentSortMode === "custom" && sortOrder.length > 0) {
-        // 严格按sort.json顺序匹配，路径完全一致
-        sorted.sort((a, b) => {
-            const ai = sortOrder.indexOf(a.path);
-            const bi = sortOrder.indexOf(b.path);
-            if (ai === -1 && bi === -1) return naturalSort(a, b);
-            if (ai === -1) return 1; // 不在排序表里的放后面
-            if (bi === -1) return -1;
-            return ai - bi;
-        });
-    } else if (currentSortMode === "natural") {
-        sorted.sort(naturalSort);
-    } else if (currentSortMode === "name") {
-        sorted.sort((a, b) => a.fileName.localeCompare(b.fileName, "zh-CN"));
-    }
-    return sorted;
+function backToBook(){ openBook(curBook.id); }
+
+// ============ 奇物图鉴 ============
+function goCodex(){
+  view="codex"; $("reader-view").style.display="none"; $("searchBar").style.display="none";
+  if(!CODEX){ $("mainView").innerHTML=`<div class="error-tip">${lang==="zh"?"图鉴未加载":"Codex not loaded"}</div>`; return; }
+  let html=`<h2 style="color:var(--accent);margin:6px 0 4px">🔮 ${lang==="zh"?"奇物图鉴":"Curio Codex"}</h2>
+    <p style="color:var(--sub);margin-bottom:16px;font-size:.9rem">${lang==="zh"?"小说里出现过的真实东方器物，均来自 AuraSage 东方神秘文化店铺。":"The real Eastern curios that appear in the story, all from the AuraSage shop of Eastern mysticism."}</p>
+    <div class="codex-grid">`;
+  CODEX.forEach(p=>{
+    const name=p.nameZh||p.name, meaning=p.meaningZh||p.meaning;
+    const el = lang==="zh" ? ({wood:"木",fire:"火",earth:"土",metal:"金",water:"水"}[p.element]||p.element) : p.element;
+    const url=`${DATA.shopBase}/#/product/${p.id}`;
+    html+=`<div class="codex-card">
+      <img src="${p.image}" alt="${name}" onerror="this.style.background='#1a1a2e'">
+      <div class="codex-body">
+        <div class="cx-name">${name}</div>
+        <div class="cx-el">${el} · ${p.type}</div>
+        <div class="cx-meaning">${meaning}</div>
+        <a href="${url}" target="_blank" rel="noopener">${lang==="zh"?"在店铺查看":"View in shop"} ↗</a>
+      </div></div>`;
+  });
+  html+=`</div>`;
+  $("mainView").innerHTML=html;
+  showStatus("");
 }
 
-function renderNovelList() {
-    novelListEl.innerHTML = "";
-    const sortedList = sortNovels(filterNovels);
-    
-    if (sortedList.length === 0) {
-        showStatus("🔍 没有找到匹配的小说");
-        return;
-    }
-    
-    if (currentViewMode === "book") {
-        // 按书籍分组，组内保持排序
-        const bookMap = {};
-        sortedList.forEach(novel => {
-            if (!bookMap[novel.book]) bookMap[novel.book] = [];
-            bookMap[novel.book].push(novel);
-        });
-        
-        // 书籍顺序按第一个章节的排序位置
-        const bookNames = Object.keys(bookMap).sort((a,b) => {
-            const aIdx = sortedList.findIndex(n => n.book === a);
-            const bIdx = sortedList.findIndex(n => n.book === b);
-            return aIdx - bIdx;
-        });
-        
-        bookNames.forEach(bookName => {
-            const title = document.createElement("div");
-            title.className = "book-group-title";
-            title.innerHTML = `<i class="fa-solid fa-book-bookmark"></i> ${bookName} (${bookMap[bookName].length}篇)`;
-            novelListEl.appendChild(title);
-            
-            bookMap[bookName].forEach(novel => {
-                novelListEl.appendChild(createNovelCard(novel));
-            });
-        });
-    } else {
-        sortedList.forEach(novel => {
-            novelListEl.appendChild(createNovelCard(novel));
-        });
-    }
+// ============ 导航/语言/主题 ============
+function goShelf(){ renderShelf($("searchInput").value); }
+function applyLangButtons(){
+  $("langZh").classList.toggle("active",lang==="zh");
+  $("langEn").classList.toggle("active",lang==="en");
 }
-
-function createNovelCard(novel) {
-    const card = document.createElement("div");
-    card.className = "novel-card";
-    card.innerHTML = `
-        <div class="card-book-tag">📚 ${novel.book}</div>
-        <div class="novel-title">${novel.title}</div>
-        <div class="novel-author">✍️ ${novel.author}</div>
-        <div class="novel-meta">📄 ${novel.fileName}</div>
-    `;
-    card.onclick = () => openReader(novel);
-    return card;
+function setLang(l){
+  if(lang===l) return; lang=l; localStorage.setItem(LS_LANG,lang);
+  document.documentElement.lang = l==="zh"?"zh-CN":"en";
+  applyLangButtons();
+  // 重渲染当前视图，保持位置
+  if(view==="shelf") renderShelf($("searchInput").value);
+  else if(view==="book"&&curBook) openBook(curBook.id);
+  else if(view==="codex") goCodex();
+  else if(view==="reader"&&curBook) openReader(curBook.id,curChap);
 }
-
-// ===================== 阅读功能 =====================
-function openReader(novel) {
-    currentNovel = novel;
-    $("readerTitle").textContent = novel.title;
-    $("readerMeta").innerHTML = `书籍：${novel.book} &nbsp;|&nbsp; 作者：${novel.author} &nbsp;|&nbsp; 文件：${novel.fileName}`;
-    
-    $("reader-content").innerHTML = marked.parse(novel.content);
-    $("reader-content").style.fontSize = fontSize + "px";
-    
-    currentPage = 1;
-    $("pageControl").style.display = "none";
-    
-    $("novelList").style.display = "none";
-    $("reader-view").style.display = "block";
-    window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-function backToList() {
-    $("reader-view").style.display = "none";
-    $("novelList").style.display = "grid";
-    currentNovel = null;
-}
-
-function switchReadMode(mode, btn) {
-    document.querySelectorAll("[data-readmode]").forEach(b => b.classList.remove("active"));
-    if (btn) btn.classList.add("active");
-    
-    if (mode === "scroll") {
-        $("reader-content").innerHTML = marked.parse(currentNovel.content);
-        $("pageControl").style.display = "none";
-    } else {
-        updatePagination();
-        $("pageControl").style.display = "flex";
-        renderCurrentPage();
-    }
-}
-
-function updatePagination() {
-    if (!currentNovel) return;
-    const wordsPerPage = parseInt($("pageWordCount").value) || 1200;
-    const text = currentNovel.content;
-    pageContents = [];
-    
-    let current = "";
-    let count = 0;
-    const paragraphs = text.split("\n\n");
-    
-    paragraphs.forEach(p => {
-        const len = p.length;
-        if (count + len > wordsPerPage && current.length > 0) {
-            pageContents.push(current);
-            current = p;
-            count = len;
-        } else {
-            current += (current ? "\n\n" : "") + p;
-            count += len;
-        }
-    });
-    if (current.trim()) pageContents.push(current);
-    
-    totalPages = pageContents.length;
-    currentPage = 1;
-    renderCurrentPage();
-}
-
-function renderCurrentPage() {
-    if (pageContents.length === 0) return;
-    $("reader-content").innerHTML = marked.parse(pageContents[currentPage - 1]);
-    $("reader-content").style.fontSize = fontSize + "px";
-    $("pageInfo").textContent = `第 ${currentPage} 页 / 共 ${totalPages} 页`;
-}
-
-function prevPage() {
-    if (currentPage > 1) {
-        currentPage--;
-        renderCurrentPage();
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-}
-
-function nextPage() {
-    if (currentPage < totalPages) {
-        currentPage++;
-        renderCurrentPage();
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-}
-
-function changeFontSize(delta) {
-    fontSize = Math.max(14, Math.min(28, fontSize + delta));
-    $("reader-content").style.fontSize = fontSize + "px";
-}
-
-// ===================== 搜索与视图切换 =====================
-function doSearch() {
-    const keyword = searchInput.value.trim().toLowerCase();
-    if (!keyword) {
-        filterNovels = [...allNovels];
-    } else {
-        filterNovels = allNovels.filter(n => 
-            n.title.toLowerCase().includes(keyword)
-            || n.author.toLowerCase().includes(keyword)
-            || n.book.toLowerCase().includes(keyword)
-            || n.content.toLowerCase().includes(keyword)
-        );
-    }
-    renderNovelList();
-}
-
-function resetSearch() {
-    searchInput.value = "";
-    filterNovels = [...allNovels];
-    renderNovelList();
-}
-
-function switchViewMode(mode, btn) {
-    currentViewMode = mode;
-    document.querySelectorAll(".mode-btn").forEach(b => b.classList.remove("active"));
-    if (btn) btn.classList.add("active");
-    renderNovelList();
-}
-
-function changeSortMode() {
-    currentSortMode = sortSelect.value;
-    renderNovelList();
-    const text = currentSortMode === "custom" && sortOrder.length > 0 
-        ? "自定义排序" 
-        : currentSortMode === "natural" ? "章节数字顺序" : "文件名升序";
-    showStatus(`✅ 已切换为${text}，共 ${filterNovels.length} 篇小说`);
-}
-
-searchInput.addEventListener("keydown", e => {
-    if (e.key === "Enter") doSearch();
-});
-
-// ===================== 主题与设置 =====================
-function setTheme(theme, btn) {
-    document.body.dataset.theme = theme;
-    document.querySelectorAll("[data-theme]").forEach(b => b.classList.remove("active"));
-    const allBtns = document.querySelectorAll(`[data-theme="${theme}"]`);
-    allBtns.forEach(b => b.classList.add("active"));
-    saveSettingToLocal();
-}
-
-function openSettingModal() {
-    $("settingModal").style.display = "flex";
-    $("setFontSize").value = fontSize;
-    $("setDefaultTheme").value = document.body.dataset.theme;
-    $("setDefaultSort").value = currentSortMode;
-    $("setDefaultWords").value = $("pageWordCount").value;
-}
-
-function closeSettingModal() {
-    $("settingModal").style.display = "none";
-}
-
-function saveGlobalSettings() {
-    fontSize = parseInt($("setFontSize").value);
-    $("pageWordCount").value = $("setDefaultWords").value;
-    currentSortMode = $("setDefaultSort").value;
-    sortSelect.value = currentSortMode;
-    
-    setTheme($("setDefaultTheme").value);
-    renderNovelList();
-    
-    if (currentNovel) {
-        $("reader-content").style.fontSize = fontSize + "px";
-        const modeBtn = document.querySelector("[data-readmode].active");
-        if (modeBtn && modeBtn.dataset.readmode === "page") {
-            updatePagination();
-        }
-    }
-    
-    saveSettingToLocal();
-    closeSettingModal();
-    showStatus("✅ 设置已保存");
-    setTimeout(() => renderNovelList(), 500);
-}
-
-function saveSettingToLocal() {
-    const setting = {
-        theme: document.body.dataset.theme,
-        fontSize: fontSize,
-        sortMode: currentSortMode,
-        pageWords: parseInt($("pageWordCount").value)
-    };
-    localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify(setting));
-}
-
-function loadSettingFromLocal() {
-    try {
-        const saved = localStorage.getItem(CONFIG.STORAGE_KEY);
-        if (!saved) return;
-        const setting = JSON.parse(saved);
-        if (setting.theme) setTheme(setting.theme);
-        if (setting.fontSize) fontSize = setting.fontSize;
-        if (setting.sortMode) {
-            currentSortMode = setting.sortMode;
-            sortSelect.value = setting.sortMode;
-        }
-        if (setting.pageWords) $("pageWordCount").value = setting.pageWords;
-    } catch(e) {}
-}
-
-// ===================== 初始化 =====================
-window.onload = () => {
-    loadSettingFromLocal();
-    loadAllData();
-};
-
-$("settingModal").addEventListener("click", e => {
-    if (e.target.id === "settingModal") closeSettingModal();
-});
+function applyTheme(){ document.body.dataset.theme=THEMES[themeIdx]; $("themeBtn").textContent=THEME_ICON[THEMES[themeIdx]]; }
+function cycleTheme(){ themeIdx=(themeIdx+1)%THEMES.length; localStorage.setItem(LS_THEME,THEMES[themeIdx]); applyTheme(); }
+function changeFontSize(d){ fontSize=Math.max(14,Math.min(28,fontSize+d)); localStorage.setItem(LS_FONT,fontSize); if($("reader-content")) $("reader-content").style.fontSize=fontSize+"px"; }
+// 搜索（书架页实时过滤）
+$("searchInput") && $("searchInput").addEventListener("input",e=>{ if(view==="shelf") renderShelf(e.target.value); });
+$("searchInput") && $("searchInput").addEventListener("keydown",e=>{ if(e.key==="Enter"&&view==="shelf") renderShelf(e.target.value); });
 </script>
 </body>
 </html>

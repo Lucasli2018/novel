@@ -1,0 +1,48 @@
+{
+  "siteTitle": "玉灯奇物馆 · Jade Lantern Curio",
+  "siteSubtitle": "东方奇物，静夜心事——以及我们愿意留下的那盏灯。",
+  "shopBase": "https://aurasage.example.com",
+  "defaultLang": "zh",
+  "cover": "covers/jade-lantern.png",
+  "books": [
+    {
+      "id": "jade-lantern",
+      "author": "林默 / Lin Mo",
+      "cover": "covers/jade-lantern.png",
+      "langs": {
+        "zh": { "title": "玉灯奇物馆" },
+        "en": { "title": "Jade Lantern Curio" }
+      },
+      "intro": {
+        "zh": "Maple Hollow 老城的深处，有一家只在夜里亮灯的东方奇物馆。林梅接手了祖母留下的店铺，用真实在售的东方器物——水晶、香、玉器——为每一位深夜推门而入的客人，解开一段心结。这里不写魔法，只写文化、仪式感，与一点恰到好处的温柔。",
+        "en": "Deep in the old town of Maple Hollow, a curio shop lights up only at night. Lin Mei has inherited her grandmother's store and, with real Eastern curios you can actually buy — crystals, incense, jade — helps each sleepless visitor untangle a knot of the heart. No magic here. Only culture, ritual, and a little well-placed tenderness."
+      },
+      "chapters": [
+        {
+          "id": "ch01",
+          "n": 1,
+          "title": { "zh": "第一章 · 不灭的灯", "en": "Chapter 1 · The Lamp That Wouldn't Go Out" },
+          "zh": "novel/玉灯奇物馆/zh/第01章_不灭的灯.md",
+          "en": "novel/玉灯奇物馆/en/ch01-the-lamp-that-wouldnt-go-out.md",
+          "products": ["p49", "p02"]
+        },
+        {
+          "id": "ch02",
+          "n": 2,
+          "title": { "zh": "第二章 · 不为情爱的玫瑰", "en": "Chapter 2 · The Rose That Wasn't for Love" },
+          "zh": "novel/玉灯奇物馆/zh/第02章_不为情爱的玫瑰.md",
+          "en": "novel/玉灯奇物馆/en/ch02-the-rose-that-wasnt-for-love.md",
+          "products": ["p06", "p16"]
+        },
+        {
+          "id": "ch03",
+          "n": 3,
+          "title": { "zh": "第三章 · 门槛的守夜人", "en": "Chapter 3 · The Night-Watch at the Threshold" },
+          "zh": "novel/玉灯奇物馆/zh/第03章_门槛的守夜人.md",
+          "en": "novel/玉灯奇物馆/en/ch03-the-night-watch-at-the-threshold.md",
+          "products": ["p01", "p09"]
+        }
+      ]
+    }
+  ]
+}
