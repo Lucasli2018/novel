@@ -41,6 +41,14 @@
           "zh": "novel/玉灯奇物馆/zh/第03章_门槛的守夜人.md",
           "en": "novel/玉灯奇物馆/en/ch03-the-night-watch-at-the-threshold.md",
           "products": ["p01", "p09"]
+        },
+        {
+          "id": "ch04",
+          "n": 4,
+          "title": { "zh": "第四章 · 地窖里的手记", "en": "Chapter 4 · The Notebook in the Basement" },
+          "zh": "novel/玉灯奇物馆/zh/第04章_地窖里的手记.md",
+          "en": "novel/玉灯奇物馆/en/ch04-the-notebook-in-the-basement.md",
+          "products": ["p27", "p04"]
         }
       ]
     }
