@@ -65,6 +65,14 @@
           "zh": "novel/玉灯奇物馆/zh/第06章_来自Aether的男人.md",
           "en": "novel/玉灯奇物馆/en/ch06-the-man-from-aether.md",
           "products": ["p48", "p26"]
+        },
+        {
+          "id": "ch07",
+          "n": 7,
+          "title": { "zh": "第七章 · 招财石与半开的门", "en": "Chapter 7 · Citrine and the Closed Door" },
+          "zh": "novel/玉灯奇物馆/zh/第07章_招财石与半开的门.md",
+          "en": "novel/玉灯奇物馆/en/ch07-citrine-and-the-closed-door.md",
+          "products": ["p15", "p50"]
         }
       ]
     }
