@@ -133,6 +133,32 @@
             "p02",
             "p12"
           ]
+        },
+        {
+          "id": "ch09",
+          "n": 9,
+          "title": {
+            "zh": "第九章 · 隔街的仿店",
+            "en": "Chapter 9 · The Copycat Down the Street"
+          },
+          "zh": "novel/玉灯奇物馆/zh/第09章_隔街的仿店.md",
+          "en": "novel/玉灯奇物馆/en/ch09-the-copycat-down-the-street.md",
+          "products": [
+            "p03"
+          ]
+        },
+        {
+          "id": "ch10",
+          "n": 10,
+          "title": {
+            "zh": "第十章 · 灯，重张",
+            "en": "Chapter 10 · The Lantern Opens"
+          },
+          "zh": "novel/玉灯奇物馆/zh/第10章_灯重张.md",
+          "en": "novel/玉灯奇物馆/en/ch10-the-lantern-opens.md",
+          "products": [
+            "p04"
+          ]
         }
       ]
     }
